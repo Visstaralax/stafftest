@@ -1,0 +1,4 @@
+{
+  "login": {"success": "true", "message": ""},
+  "userData": {"user": "Marc", "password": "012345", "email":  "test@test.com"}
+}
