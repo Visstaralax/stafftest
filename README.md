@@ -1,16 +1,18 @@
 # staffseidorapptest
 
-A new Flutter project.
+A new test Flutter project.
 
-## Getting Started
+## Descripción
 
-This project is a starting point for a Flutter application.
+Proyecto de Flutter Mobile nivel avanzado. Los temas que se han tratado:
+- Uso de providers con riverpod
+- Reconstrucción de widgets optimizado
+- Uso del theme para facilitar los cambios visuales
+- Prevención de async gaps
+- Separación de responsabilidades
+- Implementación de useCase (por ejemplo LogoutUseCase)
+- Carga de imagenes con ciclo de vida
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usar y probar app
+- El login acepta cualquier usuario y contraseña. La carga es una simulación de espera para probar funciones asíncronas
+- Puedes cambiar los datos de "json/data.json" para testear escenarios de error, desde un login fallido a un problema de carga
