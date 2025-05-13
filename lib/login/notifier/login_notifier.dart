@@ -20,7 +20,7 @@ class LoginNotifier extends StateNotifier<LoginResponse>{
           };
           LoginResponse result = await _httpService.fetchData(LoginResponse.fromJson);
           if (result.success){
-            state = result.copyWith(message: "OK");
+            state = result.copyWith(message: "");
           } else {
             state = result.copyWith(message: "Datos no correctos");
           }

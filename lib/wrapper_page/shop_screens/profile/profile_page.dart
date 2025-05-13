@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:staffseidorapptest/commons/error_dialog.dart';
+import 'package:staffseidorapptest/commons/dialog_type.dart';
+import 'package:staffseidorapptest/commons/general_dialog.dart';
 import 'package:staffseidorapptest/commons/loading_dialog.dart';
-import 'package:staffseidorapptest/shop/shop_screens/profile/notifier/profile_notifier.dart';
 
 import 'model/profile_response.dart';
+import 'notifier/profile_notifier.dart';
 
 final profileNotifier = NotifierProvider<ProfileNotifier, ProfileResponse>(() {
   return ProfileNotifier();
@@ -16,14 +17,14 @@ class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  ConsumerState<ProfileScreen> createState() => _ProfileScreen();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 final profileProvider = NotifierProvider<ProfileNotifier, ProfileResponse>(
     () {return ProfileNotifier();}
 );
 
-class _ProfileScreen extends ConsumerState<ProfileScreen>{
+class _ProfileScreenState extends ConsumerState<ProfileScreen>{
 
   final GlobalKey<LoadingDialogState> loadingDialogKey = GlobalKey<LoadingDialogState>();
   TextEditingController userController = TextEditingController();
@@ -93,7 +94,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen>{
   void showError() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
        showDialog(context: context, builder: (BuildContext context){
-        return ErrorDialog();
+        return GeneralDialog(dialogType: DialogType.knowError);
       });
     });
   }
@@ -103,24 +104,21 @@ class _ProfileScreen extends ConsumerState<ProfileScreen>{
       var error = false;
 
       try {
-        showLoadingDialog();
-        await ref.read(profileNotifier.notifier).fetchUserData();
+          showLoadingDialog();
+          await ref.read(profileNotifier.notifier).fetchUserData();
       } catch (e){
-        error = true;
-        print ("EPS!");
+          error = true;
       } finally {
-        print ("EPS2");
-        await loadingDialogKey.currentState?.stopLoading(context);
+          await loadingDialogKey.currentState?.stopLoading(context);
       }
 
       if (error) {
-        print ("EPS3");
-        showError();
+          showError();
       } else {
-        final provider = ref.watch(profileNotifier);
-        userController.text = provider.user;
-        passwordController.text = provider.password;
-        emailController.text = provider.email;
+          final provider = ref.watch(profileNotifier);
+          userController.text = provider.user;
+          passwordController.text = provider.password;
+          emailController.text = provider.email;
       }
   }
 

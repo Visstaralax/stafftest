@@ -22,7 +22,6 @@ class HttpService<T> {
     var decoded = await rootBundle.loadString('json/data.json');
     final Map<String, dynamic> jsonMap = jsonDecode(decoded);
     if (response.statusCode == 200) {
-      print ("OK");
       //final decoded = json.decode(response.body) as Map<String, dynamic>;
       await simulateDelay();
       return fromJson(jsonMap);

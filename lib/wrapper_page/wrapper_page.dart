@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:staffseidorapptest/shop/shop_screens/profile/profile_page.dart';
+import 'package:staffseidorapptest/wrapper_page/shop_screens/help/help_page.dart';
+import 'package:staffseidorapptest/wrapper_page/shop_screens/profile/profile_page.dart';
+
+import '../commons/logout/logout_dialog.dart';
 
 class WrapperScreen extends StatefulWidget  {
+  const WrapperScreen({super.key});
+
   @override
   State createState() => _WrapperScreenState();
 }
@@ -10,8 +15,11 @@ class _WrapperScreenState extends State<WrapperScreen> {
 
   int _selectedIndex = 0;
 
-  final List<Widget> widgetOptions = const [
-    ProfileScreen()
+  final List<Widget> widgetOptions = [
+    const ProfileScreen(),
+    const Text("empty"),
+    const HelpPage(),
+    const DialogLogout()
   ];
 
   void _onItemTapped(int index) {

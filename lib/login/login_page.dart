@@ -1,18 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:staffseidorapptest/commons/check_internet.dart';
 import 'package:staffseidorapptest/commons/constants.dart';
 import 'package:staffseidorapptest/commons/loading_dialog.dart';
 import 'package:staffseidorapptest/login/notifier/login_notifier.dart';
-import 'package:staffseidorapptest/shop/wrapper_screen.dart';
 
-import '../commons/connectivity_dialog.dart';
-import '../commons/error_dialog.dart';
-import '../services/http_service.dart';
+import '../commons/dialog_type.dart';
+import '../commons/general_dialog.dart';
+import '../wrapper_page/wrapper_page.dart';
 import 'model/login_response.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginResponse>((ref){
@@ -58,20 +54,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   @override
-
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FocusScope.of(context).unfocus();
     });
 
     checkConnectivity();
+    super.initState();
   }
 
   void showErrorConnectivity() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (BuildContext context){
-        return ConnectivityDialog();
+        print ("CONNETIVITY");
+        return GeneralDialog(dialogType: DialogType.connectivity);
       });
     });
   }
@@ -125,7 +121,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void showError() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (BuildContext context){
-        return ErrorDialog();
+        return GeneralDialog(dialogType: DialogType.knowError);
       });
     });
   }
