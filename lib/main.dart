@@ -18,11 +18,14 @@ class StaffMarcApp extends StatelessWidget {
       title: 'Marc Staff Login App test',
       debugShowCheckedModeBanner: true,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey[50],
         textTheme: TextTheme(
           displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+          bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          bodyMedium: TextStyle(fontSize: 16),
           titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          titleLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
         ),
         useMaterial3: true,
         inputDecorationTheme: InputDecorationTheme(

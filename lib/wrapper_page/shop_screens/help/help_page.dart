@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:staffseidorapptest/commons/ImageLoader.dart';
+import 'package:staffseidorapptest/commons/image_loader.dart';
 
 import '../../../commons/constants.dart';
 
 class HelpPage extends StatefulWidget{
-
   const HelpPage({super.key});
   @override
   State<StatefulWidget> createState() => HelpPageState();

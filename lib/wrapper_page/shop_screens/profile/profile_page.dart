@@ -4,12 +4,13 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:staffseidorapptest/commons/dialog_type.dart';
 import 'package:staffseidorapptest/commons/general_dialog.dart';
-import 'package:staffseidorapptest/commons/loading_dialog.dart';
+import 'package:staffseidorapptest/commons/loading_widget/loading_dialog.dart';
+import 'package:staffseidorapptest/commons/loading_widget/loading_manager.dart';
 
 import 'model/profile_response.dart';
 import 'notifier/profile_notifier.dart';
 
-final profileNotifier = NotifierProvider<ProfileNotifier, ProfileResponse>(() {
+final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileResponse>((ref) {
   return ProfileNotifier();
 });
 
@@ -19,10 +20,6 @@ class ProfileScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
-
-final profileProvider = NotifierProvider<ProfileNotifier, ProfileResponse>(
-    () {return ProfileNotifier();}
-);
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen>{
 
@@ -35,7 +32,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>{
   Widget build(BuildContext context) {
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      requestProfileData();
+      _requestProfileData();
     });
 
       return Scaffold(
@@ -62,7 +59,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>{
       );
   }
 
-  Widget getTextField(TextEditingController controller, String labelText, String hintText, IconData? icon, bool isObscure){
+  Widget getTextField(TextEditingController controller, String labelText, String hintText, IconData? icon, bool isObscure) {
     return SizedBox(
       width: 300,
       height: 50,
@@ -74,48 +71,33 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>{
           labelStyle: const TextStyle(color: Colors.blue),
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: icon!=null ? Icon(icon, color: Colors.blue) : null,
+          prefixIcon: icon != null ? Icon(icon, color: Colors.blue) : null,
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+          contentPadding: const EdgeInsets.symmetric(
+              vertical: 16.0, horizontal: 20.0),
         ),
       ),
     );
   }
 
-  void showLoadingDialog() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      showDialog(context: context, builder: (BuildContext context){
-        return LoadingDialog(key: loadingDialogKey);
-      });
-    });
-  }
+  void _requestProfileData() async {
 
-  void showError() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-       showDialog(context: context, builder: (BuildContext context){
-        return GeneralDialog(dialogType: DialogType.knowError);
-      });
-    });
-  }
-
-  void requestProfileData() async {
-
-      var error = false;
-
-      try {
-          showLoadingDialog();
-          await ref.read(profileNotifier.notifier).fetchUserData();
-      } catch (e){
-          error = true;
-      } finally {
-          await loadingDialogKey.currentState?.stopLoading(context);
+      LoadingManager.showLoadingDialog(context, loadingDialogKey);
+      await ref.read(profileProvider.notifier).fetchUserData();
+      if (context.mounted) {
+        LoadingManager.stopLoading(context, loadingDialogKey);
       }
 
-      if (error) {
-          showError();
+      print ("ref.watch(profileProvider).error");
+      print (ref.watch(profileProvider).error);
+
+      if (ref.watch(profileProvider).error) {
+        if (context.mounted) {
+          LoadingManager.showError(context);
+        }
       } else {
-          final provider = ref.watch(profileNotifier);
+          final provider = ref.watch(profileProvider);
           userController.text = provider.user;
           passwordController.text = provider.password;
           emailController.text = provider.email;

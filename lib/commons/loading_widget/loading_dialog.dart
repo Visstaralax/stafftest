@@ -13,14 +13,14 @@ class LoadingDialog extends StatefulWidget {
 
 class LoadingDialogState extends State<LoadingDialog> {
 
+  bool stopped = false;
+
   Future<void> stopLoading(BuildContext context) async {
-    if (mounted) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
+        print ("POP");
+        stopped = true;
         Navigator.of(context).pop();
-      });
-    } else {
-      return;
-    }
+    });
   }
 
   @override

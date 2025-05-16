@@ -64,12 +64,19 @@ class _ImageLoaderState extends State<ImageLoader> {
         child: Icon(Icons.error, color: Colors.red),
       );
     } else {
-      return Image(
-        image: _image.image,
-        width: widget.width,
-        height: widget.height,
-        fit: BoxFit.cover,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20), // Ajusta el valor como necesites
+        child: getImage()
       );
     }
+  }
+
+  Image getImage(){
+    return Image(
+      image: _image.image,
+      width: widget.width,
+      height: widget.height,
+      fit: BoxFit.cover,
+    );
   }
 }

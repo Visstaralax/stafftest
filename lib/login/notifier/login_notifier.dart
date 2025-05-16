@@ -2,9 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:staffseidorapptest/login/model/login_response.dart';
 import 'package:staffseidorapptest/services/http_service.dart';
 
+import '../../commons/constants.dart';
+
 class LoginNotifier extends StateNotifier<LoginResponse>{
 
-  final HttpService<LoginResponse> _httpService = HttpService(baseUrl: "https://www.google.es", info: "LOGIN");
+  final HttpService<LoginResponse> _httpService = HttpService(baseUrl: Constants.baseUrl, info: "LOGIN");
   LoginNotifier() : super(LoginResponse.empty());
 
   Future<void> makeLogin(String user, String password) async {

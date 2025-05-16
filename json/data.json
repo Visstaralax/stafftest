@@ -1,4 +1,30 @@
 {
   "login": {"success": "true", "message": ""},
-  "userData": {"user": "Marc", "password": "012345", "email":  "test@test.com"}
+  "userData": {"user": "Marc", "password": "012345", "email":  "test@test.com"},
+  "products": [
+    {"id": "0", "name": "Camiseta Mini",
+      "description":  "Trazo mini del logo",
+      "stock": 10, "price": 20.99,
+      "image": "https://srv.latostadora.com/image/tuning-mini--id:4ebdd04f-6ba3-4661-8294-8f1dfa4aa9cb;s:H_A5;b:f2f2f2;w:520;f:f;i:135623135623201709265.jpg"},
+    {"id": "0", "name": "Camiseta UrbanProof",
+      "description":  "Trazo sub del Qasqai",
+      "stock": 5, "price": 19.99,
+      "image": "https://srv.latostadora.com/image/urbanproof--id:7f7d9c19-7a30-46b5-9968-835539f200ee;s:H_A22;b:f2f2f2;w:520;f:f;i:1356231356232017092622.jpg"},
+    {"id": "0", "name": "Camiseta Comecocos",
+      "description":  "El comecocos en acción",
+      "stock": 5, "price": 22.99,
+      "image": "https://srv.latostadora.com/image/comepezones--id:e02356c5-10eb-45b3-ae17-415eea377015;s:H_A22;b:f2f2f2;w:520;f:f;i:1356231356232017092622.jpg"},
+    {"id": "0", "name": "Camiseta Arts",
+      "description":  "Grupo de música, els amics de les arts",
+      "stock": 5, "price": 23.99,
+      "image": "https://srv.latostadora.com/image/els-amics-de-les-arts--id:23795d2d-ebb5-4773-be14-97d96ec0d3b9;s:H_A5;b:f2f2f2;w:520;f:f;i:135623135623201709265.jpg"},
+    {"id": "0", "name": "Camiseta Cuerpo",
+      "description":  "Segadora accidental",
+      "stock": 5, "price": 20.99,
+      "image": "https://srv.latostadora.com/image/cortacesped-cuerpazo--id:868d4f95-8425-45c9-99a8-6773da7ead11;s:H_W4;b:f2f2f2;w:520;f:f;i:13562314330681356234.jpg"},
+    {"id": "0", "name": "Camiseta Guitar Hero",
+      "description":  "Nuestro heroe musical",
+      "stock": 5, "price": 17.99,
+      "image": "https://srv.latostadora.com/image/guitar-hero--id:41a94a2d-2820-4bc1-a048-ccf86cdecca0;s:H_A22;b:f2f2f2;w:520;f:f;i:1356231356232017092622.jpg"}
+  ]
 }

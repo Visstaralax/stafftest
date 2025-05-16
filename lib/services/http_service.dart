@@ -26,6 +26,7 @@ class HttpService<T> {
       await simulateDelay();
       return fromJson(jsonMap);
     } else {
+      print ("throw");
       throw Exception("HttpService: Error al cargar los datos de $info");
     }
   }

@@ -3,7 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:staffseidorapptest/commons/check_internet.dart';
 import 'package:staffseidorapptest/commons/constants.dart';
-import 'package:staffseidorapptest/commons/loading_dialog.dart';
+import 'package:staffseidorapptest/commons/loading_widget/loading_dialog.dart';
+import 'package:staffseidorapptest/commons/loading_widget/loading_manager.dart';
 import 'package:staffseidorapptest/login/notifier/login_notifier.dart';
 
 import '../commons/dialog_type.dart';
@@ -110,37 +111,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  void showLoadingDialog() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      showDialog(context: context, builder: (BuildContext context){
-        return LoadingDialog(key: loadingDialogKey);
-      });
-    });
-  }
-
-  void showError() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      showDialog(context: context, builder: (BuildContext context){
-        return GeneralDialog(dialogType: DialogType.knowError);
-      });
-    });
-  }
-
   void makeLogin(WidgetRef ref) async {
 
     var error = false;
 
     try {
-      showLoadingDialog();
+      LoadingManager.showLoadingDialog(context, loadingDialogKey);
       await ref.read(loginProvider.notifier).makeLogin(userController.text, passController.text);
-    } catch (e, st) {
+    } catch (e) {
       error = true;
     } finally {
-      await loadingDialogKey.currentState?.stopLoading(context);
+      if (context.mounted) {
+        LoadingManager.stopLoading(context, loadingDialogKey);
+      }
     }
 
     if (error){
-      showError();
+      if (context.mounted) {
+        LoadingManager.showError(context);
+      }
     } else {
       if (ref.watch(loginProvider).success){
         SchedulerBinding.instance.addPostFrameCallback((_) {

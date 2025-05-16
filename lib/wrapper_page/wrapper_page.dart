@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:staffseidorapptest/wrapper_page/shop_screens/help/help_page.dart';
 import 'package:staffseidorapptest/wrapper_page/shop_screens/profile/profile_page.dart';
+import 'package:staffseidorapptest/wrapper_page/shop_screens/shop/shop_page.dart';
 
 import '../commons/logout/logout_dialog.dart';
 
+final int SHOP_PAGE_DEFAULT = 1;
 class WrapperScreen extends StatefulWidget  {
   const WrapperScreen({super.key});
 
@@ -12,14 +14,13 @@ class WrapperScreen extends StatefulWidget  {
 }
 
 class _WrapperScreenState extends State<WrapperScreen> {
-
-  int _selectedIndex = 0;
+  int _selectedIndex = SHOP_PAGE_DEFAULT;
 
   final List<Widget> widgetOptions = [
-    const ProfileScreen(),
-    const Text("empty"),
-    const HelpPage(),
-    const DialogLogout()
+    ProfileScreen(key: UniqueKey()),
+    ShopScreen(key: UniqueKey()),
+    HelpPage(key: UniqueKey()),
+    DialogLogout()
   ];
 
   void _onItemTapped(int index) {
@@ -49,7 +50,6 @@ class _WrapperScreenState extends State<WrapperScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

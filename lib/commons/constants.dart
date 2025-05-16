@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'loading_dialog.dart';
+import 'loading_widget/loading_dialog.dart';
 
 class Constants{
   static const String logo = 'images/logo.png';
+  static const String baseUrl = "https://www.google.es";
 }
 
 class Images{
